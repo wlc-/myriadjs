@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)https://cryptap.us/myr/jswallet/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Myriad JSWallet</title>
+	<!--<meta name="description" content="RushWallet is an instant cross-platform bitcoin wallet, controlled by you.">-->
+	<meta name="description" content="Myriad JSWallet is an instant cross-platform Myriad wallet, controlled by you.">
+    <!-- Bootstrap -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+	<link href="css.css" rel="stylesheet" type="text/css">
+
+	 <style>
+        .container {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body style="zoom: 1;">
+    <nav class="banner navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!--<a class="brand" href="/">
+                <img src="img/logo.png" alt="" style="margin-top: -4px; width: 129px;">-->
+            <span class="KKBrand">
+                <img class="KKBrand__logo" src="myriadlogo.png"/>
+                <span class="KKBrand__text">Myriad JSWallet</span>
+            </span>
+            <!--<a class="KKBrand" href="http://kryptokit.com" target="_blank">
+            	by Kryptokit
+            </a>-->
+            <div id="price"></div>
+            <div id="settings"><span class="glyphicon glyphicon-cog"></span></div>
+            <div id="info"><span class="glyphicon glyphicon-info-sign"></span></div>
+        </div>
+    </nav>
+
+    <div id="generate">
+        <section class="dark">
+            <div class="container">
+				<!-- <button class="" id="passBtn"> <span class="hl">Create wallet with password</span> <span class="glyphicon"></span></button> -->
+
+
+				<div id="leadTxt">Move your mouse randomly inside the box until your Myriad wallet appears</div>
+
+
+				<div id="passBox">
+					
+					<div id="passBoxTxt">
+						<div class="KKCheck">
+							<div class="KKCheckInner"><span class="glyphicon glyphicon-ok" id="checkIcon"></span></div>	
+						</div> 
+						Create wallet with password
+					</div> 
+				</div>
+
+                <div id="tapBox" class="tapBox">
+                	<!--                     <img src="img/ripple.png" alt="" id="tapGif" width="150" class="tapBox">
+ -->
+
+ 					<div id="code"></div>
+					<div class="ripples" style="display: none;">  
+					  <div class="ripple ripple-1"></div>
+					  <div class="ripple ripple-2"></div>
+					  <div class="ripple ripple-3"></div>
+					</div>
+
+                    <div id="progressLockBox" style="display: inline-block;">
+                        <div id="progressFill"></div>
+                        <img src="progress_lock.png" alt="" id="progressLockImg" class="tapBox" width="236">
+                    </div>
+
+                </div>
+
+
+
+                <div id="createPassword" class="bg-warning">
+
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="createPasswordTxt">
+                        <span class="input-group-btn">
+							<button type="button" class="btn btn-success" id="createWallet" disabled="disabled">Create Wallet</button>
+			      		</span>
+                    </div>
+
+                </div>
+
+                <div id="openPassword" class="bg-warning">
+                    <!-- <label for="exampleInputEmail1">Please enter a password to open this wallet</label> -->
+
+
+					<div class="input-group">
+                        <input type="password" class="form-control" id="openPasswordTxt">
+                        <span class="input-group-btn">
+							<button type="button" class="btn btn-success" id="openWallet" disabled="disabled">Open Wallet</button>
+			      		</span>
+                    </div>
+
+
+                </div>
+
+                <div class="alert alert-danger" id="loginError"></div>
+
+            </div>
+            <!-- <p><a href="address.php">Continue</a></p> -->
+        </section>
+    </div>
+
+    <div id="wallet" class="container">
+    	<div id="saveURL"><div>Make sure you save your Private Keys somewhere safe. Go to Settings -&gt; Export Private Keys to display them.</div></div>
+
+    	<div id="addressBox">
+    	    <div id="addressTxt">Your Myriad address</div>
+    	    <span id="address"></span>
+    	</div>
+
+        <div id="walletInfo">
+            <div class="container">
+                <div class="">
+                    <div id="leftInfo">
+                        <div class="balance">
+                            <!--฿<span id="btcBalance"></span>-->
+                            ᵯ<span id="btcBalance"></span>
+                        </div>
+                        <div class="currency">
+                            <span id="currencyValue">USD</span> <span id="fiatValue"></span>
+                        </div>
+                    </div>
+                    <div class="qr-link">
+                        <img src="qr.jpg" class="qrimage smallQR">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="tabButtons">
+            <a class="tabButton" id="receiveBoxBtn">
+                <!--<img src="img/receive.png" alt="" class="btnIcon">--><span class="glyphicon glyphicon-save"></span> Receive</a>
+            <a class="tabButton" id="sendBoxBtn">
+                <!--<img src="img/send.png" alt="" class="btnIcon" id="sendIcon">--><span class="glyphicon glyphicon-open"></span> Send</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div id="actions">
+            <div id="receiveBox">
+                <div class="actionText">Generate a payment request</div>
+
+				<div class="form-group">
+                   
+
+                    <div class="input-group">
+                        <!-- <span class="input-group-addon"><i class="fa fa-bitcoin"></i></span>-->
+                        <!--<span class="input-group-addon" id="changeType2"><span class="glyphicon glyphicon-sort"></span> <span class="addonBox2">฿</span> </span>-->
+                        <span class="input-group-addon" id="changeType2"><span class="glyphicon glyphicon-sort"></span> <span class="addonBox2">ᵯ</span> </span>
+
+                        <input class="form-control" placeholder="Amount" id="txtReceiveAmount" type="number" autocapitalize="off" autocorrect="off">
+                        <span class="input-group-btn">
+                        	<span id="fiatPrice2"></span>
+                			<a class="btn btn-success" id="generateBtn" disabled="disabled">Generate</a>				
+                        </span>
+
+                    </div>
+
+                 </div>
+
+             
+            </div>
+            <div id="sendBox">
+                <div class="actionText">Send</div>
+				<div class="alert alert-warning" id="errorBox">
+					<!-- <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> -->
+					<div id="errorTxt"></div>
+				</div>
+
+                <div class="form-group">
+                    <!-- <div id="reader" style="width:100px;height:100px">
+					 </div> -->
+                    <div class="input-group" style="width:100%">
+						
+                        <input type="text" class="form-control" placeholder="Receiving address" id="txtAddress" autocapitalize="off" autocorrect="off">
+                        <span class="input-group-addon" id="qrlink" onclick="Android.startQr()"><span class="glyphicon glyphicon-qrcode" id="qrscan"></span></span>
+                        <div id="oneNameInfo">
+                        	<div id="oneNameName"></div>
+                        	<div id="oneNameImg"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <!-- <span class="input-group-addon"><i class="fa fa-bitcoin"></i></span>-->
+                        <!--<span class="input-group-addon" id="changeType"><span class="glyphicon glyphicon-sort"></span> <span class="addonBox">฿</span> </span>-->
+                        <span class="input-group-addon" id="changeType"><span class="glyphicon glyphicon-sort"></span> <span class="addonBox">ᵯ</span> </span>
+
+                        <input class="form-control" placeholder="Amount" id="txtAmount" type="number" autocapitalize="off" autocorrect="off">
+                        <span class="input-group-btn">
+                        	<span id="fiatPrice"></span>
+                			<a class="btn btn-success" id="sendBtn" disabled="disabled">Send</a>				
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="container" id="txList">
+        <div id="txTitle">Transaction History</div>
+
+        <div class="break"></div>
+
+        <div id="noTx">No transactions</div>
+        <div id="noTx"><span id="explorerlink"></span></div>
+        <div class="table-responsive" id="txBox">
+            <table class="table table-hover" id="txTable">
+                <thead>
+                    <tr id="tableHeader">
+                        <th style="border-radius:7px 0 0 7px;">Date</th>
+                        <th class="hidden-sm hidden-xs">Tx ID</th>
+                        <th class="hidden-sm hidden-xs">Confirmations</th>
+
+                        <th style="border-radius:0 7px 7px 0; padding-right:40px; text-align:right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+			<div class="modal fade" id="infoModal">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+
+			            <div class="modal-body">
+			                <div class="modalBox orangeLinks">
+			                	<div class="modalTitle">
+			                		<div class="closeModal">
+			                			<span class="glyphicon glyphicon-remove"></span>
+			                		</div>
+			                		Help
+			                	</div>
+                                <!--<div id="infoLogo"><img src="img/logo.png" alt=""></div>-->
+
+			                	<div class="infoText">JSWallet is an instant cross-platform Myriad wallet. By not requiring annoying logins and passwords, JSWallet makes Myriad simple to setup and easy to use.</div>
+
+			                	<div class="infoTitle">Only you have control of your wallet and Myriads </div>
+			                	<div class="infoText">JSWallet neither holds nor has access to your Myriads or private keys. All information is stored on the client-side, so only you have control of your wallet and your Myriads.</div>
+
+			                	<div class="infoTitle">Your URL is Your Key</div>
+			                	<div class="infoText">Bookmark your wallet’s secret URL to access your JSWallet in the future. Please note, this is your private URL so do not share it with anyone. <b>If you lose this URL your Myriads will be lost forever.</b></div>
+
+			                	<div class="infoTitle">Add a password for extra security</div>
+			                	<div class="infoText">When creating your JSWallet there is an option to add a password to your account. You will need to enter this password every time you access your wallet. For your own security this wallet and the server hosting it does not store any data pertaining to your private key or password, so <strong>don’t forget your password!</strong><br><br>
+								<i>Please note, all transactions sent from your wallet include a .0001 mining fee. This fee helps support the Myriad network and ensures your transaction goes through quickly.</i>
+			                	</div>
+			                	
+								<div class="infoTitle">Time delay and recommendations for use</div>
+			                	<div class="infoText">Because JSWallet uses an external block explorer to calculate available funds, it may take up to 2 minutes for funds to show up in your wallet. Mining directly to this account is not recommended. Sending to P2SH (multi-sig) addresses is currently not supported. For additional security, you can export your brainwallet phrase and/or private key in case any issues arise (see the "settings" button).</div>
+
+			                	<div class="infoTitle">Max send feature</div>
+			                	<div class="infoText">Type "max" in the send amount field to see the maximum amount you can send from your wallet.</div>
+								
+
+								<div class="infoTitle">Myriad price indicator</div>
+			                	<div class="infoText">The Myriad price shown in the top header is calculated from bittrex and the price shown in your currency of choice.</div>
+
+			                	<!--<div class="infoTitle">OneName Feature</div>
+			                	<div class="infoText">JSWallet integrates with OneName, the Bitcoin user name registration service, for simple address lookups. Simply type in a OneName registered name when sending BTC from RushWallet and the address field will automatically populate.  For more information and to claim your Bitcoin user name please visit <a href="http://onename.io" target="_blank">OneName.io</a>.</div>-->
+								<div class="infoTitle">About</div>
+			                	<div class="infoText">JSWallet is a fork of <a href="https://rushwallet.com/">RushWallet</a> by <a href="http://kryptokit.com/">kryptokit</a>. It has been modified for Myriad by <a href="https://cryptap.us/">cryptapus</a>.  Donations appreciated: <a href="http://insight-myr.cryptap.us/address/MCrypTZRTRk8RGjSt3MZ3atSEwSLPicePR" target="_blank">MCrypTZRTRk8RGjSt3MZ3atSEwSLPicePR</a>. Android version was created på reddit.com/u/_wlc_.</div>
+
+			                	<!--<div class="infoTitle">Contact Us</div>
+			                	<div class="infoText"><a href="mailto:rush@kryptokit.com" style="color: #F49500;">rush@kryptokit.com</a></div>-->
+
+
+			                </div>
+
+			                
+			            </div>
+			            
+			        </div>
+			        <!-- /.modal-content -->
+			    </div>
+			    <!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+	        <div class="modal fade" id="request">
+	            <div class="modal-dialog">
+	                <div class="modal-content">
+
+	                    <div class="modal-body">
+	                        <div class="modalBox">
+	                        	<div class="modalTitle">
+	                        		<div class="closeModal">
+	                        			<span class="glyphicon glyphicon-remove"></span>
+	                        		</div>
+	                        		Receive
+	                        	</div>
+
+	                        	<!--<p>Requesting <span id="generateAmount"></span> BTC to:-->
+	                        	<p>Requesting <span id="generateAmount"></span> ᵯ to:
+	                        	    <br>
+	                        	    <small><span id="generateAddress"></span></small>
+	                        	</p>
+	                        	<img src="qr.jpg" class="qrimage" id="receiveQR">
+	                        </div>
+
+	                        
+	                    </div>
+	                    
+	                </div>
+	                <!-- /.modal-content -->
+	            </div>
+	            <!-- /.modal-dialog -->
+	        </div>
+	        <!-- /.modal -->
+
+
+
+	        <div class="modal fade" id="passwordInfoModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <div class="modalBoxLeft">
+                                <div class="modalTitle">
+                                    <div class="closeModal">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </div>
+                                    Password Recommendations
+                                </div>
+
+                                <div class="orangeText">Your wallet is only as secure as your password</div>
+                                
+                                <div class="blueText">No minimum password length requirement</div>
+
+                                <div class="grayText">For ease of use, this is no minumum password length requirement. However, for increased security we recommend a password length of at least 8 characters. Using numbers, symbols, and a mix of upper and lower case letters in your password makes it harder for someone to guess your password.</div>
+
+                            </div>
+
+                            
+                        </div>
+                        
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <div class="modal fade" id="settingsModal">
+	            <div class="modal-dialog">
+	                <div class="modal-content">
+
+	                    <div class="modal-body">
+	                        <div class="modalBox">
+	                        	<div class="modalTitle">
+	                        		<div class="closeModal">
+	                        			<span class="glyphicon glyphicon-remove"></span>
+	                        		</div>
+	                        		<div id="settingsTitle">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>  
+                                        <span id="settingsTitleText">Settings</span>       
+                                    </div>
+
+	                        	</div>
+
+                                <div id="settingsChoices">
+                                    <div class="settingsChoice" id="choiceCurrency">
+                                        <div class="settingsChoiceIcon"><span class="glyphicon glyphicon-usd"></span></div>
+                                        <div class="settingsChoiceText">Set<br>Currency</div>
+                                    </div>
+                                    <div class="settingsChoice" id="choiceMining">
+                                        <div class="settingsChoiceIcon"><span class="glyphicon glyphicon-flash"></span></div>
+                                        <div class="settingsChoiceText">Set<br>Mining Fee</div>
+                                    </div>     
+                                    <div class="settingsChoice" id="choiceExport">
+                                        <div class="settingsChoiceIcon"><span class="glyphicon glyphicon-export"></span></div>
+                                        <div class="settingsChoiceText">Export<br>Private Keys</div>
+                                    </div>    
+                                    <div class="clearfix"></div>                           
+                                </div>
+
+                                <div id="settingsCurrency">
+                                    <div class="form-group">
+                                      <label for="currencySelect">Active currency</label>
+                                      <select id="currencySelect" class="form-control">
+
+                                      </select>
+                                    </div>
+                                </div>
+
+                                <div id="settingsExport">
+                                    <div>
+                                        Save the following information somewhere safe.<br><br>
+                                    </div>
+                                    <div class="form-group">
+                                      <label>Brain Wallet</label>
+                                      <input type="text" class="form-control" id="txtBrain" readonly="">                            
+    
+                                      <label>Private Key</label>
+                                      <input type="text" class="form-control" id="txtPrivate" readonly="">
+                                      
+                                    </div>
+                                </div>
+
+                                <div id="settingsMining">
+                                    <div id="settingsMiningInfo">JSWallet minimum transactions are 0.0001 XMY. Note that sending too little of a mining fee can greatly impact the speed at which your transactions are confirmed. You may change the fee below to alter the default mining fee.</div>
+                                    
+                                    <div class="break"></div>
+                                    <div class="miningOption">
+                                        <div class="miningOptionLeft">
+                                            <div class="settingsOption" type="frugal"></div>
+                                            <div class="settingsOptionText">Minimum</div>
+                                        </div>
+                                        <div class="miningOptionRight">A miner fee of 0.0001 XMY will not be included in the transaction. <span class="orangeText">Please note that transactions may be significantly slower to confirm. </span></div>
+                                        <div class="clearfix"></div>
+
+                                    </div>
+                                    
+                                    <div class="break"></div>
+
+                                    <div class="miningOption">
+                                        <div class="miningOptionLeft">
+                                            <div class="settingsOption" type="normal"></div>
+                                            <div class="settingsOptionText">Normal</div>
+                                        </div>
+                                        <div class="miningOptionRight"> The miner fee policy suggested by the standard Myriad client of 0.0001 XMY will be used. <span class="blueText">Recommended.</span></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="break"></div>
+
+                                    <div class="miningOption">
+                                        <div class="miningOptionLeft">
+                                            <div class="settingsOption" type="generous"></div>
+                                            <div class="settingsOptionText">Generous</div>
+                                        </div>
+                                        <div class="miningOptionRight">A miner fee of 0.0005 XMY will be used as to ensure your transactions are processed quickly.</div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="break"></div>
+
+                                    <div class="miningOption">
+                                        <div class="miningOptionLeft">
+                                            <div class="settingsOption" type="custom"></div>
+                                            <div class="settingsOptionText">Custom</div>
+                                        </div>
+                                        <div class="miningOptionRight">
+                                            Set a custom miner fee.
+                                            <div class="form-group" id="feeHolder">
+                                                <div class="input-group">
+                                                    <!--<span class="input-group-addon">฿</span>-->
+                                                    <span class="input-group-addon">ᵯ</span>
+
+                                                    <input class="form-control" placeholder="Miner Fee" id="txtFeeAmount" type="text" autocapitalize="off" autocorrect="off">
+                                                
+                                                    <span id="fiatPriceFee"></span>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="break"></div>
+
+
+
+                                </div>
+                            
+
+	                        </div>
+
+	                        
+	                    </div>
+	                    
+	                </div>
+	                <!-- /.modal-content -->
+	            </div>
+	            <!-- /.modal-dialog -->
+	        </div>
+	        <!-- /.modal -->
+
+
+			<div class="modal fade" id="confirmModal">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+
+			            <div class="modal-body" id="confirmBody">
+			                <div class="modalBox" id="confirmBox">
+			                	
+								<p>Confirm that you are sending</p>
+			                	<!--<p id="confirmAmountLine"><span id="confirmAmount"></span> (BTC)</p>-->
+			                	<p id="confirmAmountLine"><span id="confirmAmount"></span> (ᵯ)</p>
+			                	<p>to the following address</p>
+			                	<div id="confirmAddress"></div>
+		                	    <small><span id="generateAddress"></span></small>
+			                </div>
+								<button class="btn btn-default closeConfirm">Cancel</button> <button class="btn btn-success" id="confirmSend">Confirm</button>
+
+								<div id="minerTxt">Please note, this transaction includes a <span id="txFee"></span> mining fee</div>
+
+			                
+			            </div>
+			            
+			        </div>
+			        <!-- /.modal-content -->
+			    </div>
+			    <!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+	<script>
+	  //(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  //(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  //m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  //})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  //ga('create', 'UA-41277495-1', 'auto');
+	  //ga('send', 'pageview');
+	  
+
+      //(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  //(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  //m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  //})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  //ga('create', 'UA-9673894-3', 'auto');
+	  //ga('send', 'pageview');
+
+	</script>
+
+
+    <audio id="noise"></audio>
+
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="bitcoinjs.min.js"></script>
+    <script src="bitcointjs.min.js"></script>
+    <script src="rw.js"></script>
+    <script src="app.js"></script>
+    <script src="tx.js"></script>
+    <script src="util.js"></script>
+    <script src="moment.js"></script>
+
+
+    <script>
+    </script>
+</body></html>

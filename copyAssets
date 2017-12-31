@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -r src/assets/jswallet ios/assets/
+cp -r src/assets/jswallet android/app/src/main/assets/
