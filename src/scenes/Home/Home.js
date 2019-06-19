@@ -78,15 +78,22 @@ class Home extends Component {
     }
   }
 
+  onNavigationStateChange = (event) => {
+    if (event.navigationType === 'click') {
+      this.webview.stopLoading();
+      this.goExternalUrl(event.url);
+    }
+  }
+
   render = function () {
     if (this.state.isLoading) {
       return (<Loading />);
     }
     else {
-      var jsWalletSrc = 'jswallet.html';
+      var jsWalletSrc = 'index.html';
 
       if( Platform.OS === 'android' ) {
-        jsWalletSrc = 'file:///android_asset/jswallet/jswallet.html';
+        jsWalletSrc = 'file:///android_asset/jswallet.github.io/index.html';
       }
 
       return (
@@ -97,12 +104,8 @@ class Home extends Component {
           onMessage={this.onMessage}
           injectedJavaScript={this.state.hash ? "window.location.hash='"+this.state.hash+"'; init();" : "init();"}
           scrollEnabled={false}
-          onNavigationStateChange={(event) => {
-            if (event.navigationType === 'click') {
-              this.webview.stopLoading();
-              this.goExternalUrl(event.url);
-            }
-          }}
+          onNavigationStateChange={this.onNavigationStateChange}
+          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
         />
       );
     }

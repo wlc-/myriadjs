@@ -1,4 +1,8 @@
 #!/bin/bash
+rm -rf ios/assets/jswallet.github.io
+rm -rf android/app/src/main/assets/jswallet.github.io
+rm -rf src/assets/jswallet.github.io
 
-cp -r src/assets/jswallet ios/assets/
-cp -r src/assets/jswallet android/app/src/main/assets/
+cp -r jswallet.github.io ios/assets/
+cp -r jswallet.github.io android/app/src/main/assets/
+cp -r jswallet.github.io src/assets/
